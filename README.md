@@ -1,0 +1,1 @@
+# sample_task_mangae_used_by_GitHub_Spec_Kit
