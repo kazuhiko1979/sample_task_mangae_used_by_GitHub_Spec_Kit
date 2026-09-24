@@ -43,6 +43,7 @@ bash .agent/2-harness/scripts/agent-sync.sh --project . --targets codex
 これにより `.codex/config.toml` に Context7 MCP 設定、`.codex/agents/` に explore / implement /
 reviewer / tester / security の agent 定義が作成されます。同期後はこのプロジェクトから Codex を再起動します。
 このセッションでは Context7 がすでに利用可能なため、MCPを使うだけなら上記の個別同期は必須ではありません。
+ユーザー全体のstdio版 `context7` と競合しないよう、プロジェクトのHTTP接続は `context7_remote` として登録します。
 
 ## 確認コマンド
 
