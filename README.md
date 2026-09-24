@@ -23,6 +23,27 @@ Docker digest防御、`standard` / `strict` review profile は導入していま
 この実行環境では `.codex/`、`.agents/`、`.git/hooks/` が読み取り専用です。そのため Codex 固有の設定・
 native agent、共通hook、Git pre-commit hook は、書込み可能な通常の開発環境で別途同期します。
 
+### Codex をプロジェクト設定で利用する
+
+書込み可能で trusted な通常の開発環境では、まず生成予定を確認します。
+
+```bash
+bash .agent/3-context/mcp/sync-mcp.sh --project . --targets codex --dry-run
+bash .agent/2-harness/scripts/agent-sync.sh --project . --targets codex --dry-run
+```
+
+内容を確認してから、`--force` を付けずに同期します。既存の `.codex/config.toml` がある場合は、
+生成内容を確認して手動で統合します。
+
+```bash
+bash .agent/3-context/mcp/sync-mcp.sh --project . --targets codex
+bash .agent/2-harness/scripts/agent-sync.sh --project . --targets codex
+```
+
+これにより `.codex/config.toml` に Context7 MCP 設定、`.codex/agents/` に explore / implement /
+reviewer / tester / security の agent 定義が作成されます。同期後はこのプロジェクトから Codex を再起動します。
+このセッションでは Context7 がすでに利用可能なため、MCPを使うだけなら上記の個別同期は必須ではありません。
+
 ## 確認コマンド
 
 ```bash
