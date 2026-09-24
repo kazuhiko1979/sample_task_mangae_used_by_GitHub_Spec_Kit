@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema_version", "reviewer", "mode", "status", "findings"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "reviewer": { "enum": ["claude", "gemini", "codex"] },
+    "mode": { "enum": ["primary", "deep"] },
+    "status": { "enum": ["pass", "fail"] },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["severity", "confidence", "category", "message", "blocking"],
+        "properties": {
+          "severity": { "enum": ["critical", "high", "medium", "low", "info"] },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+          "category": { "type": "string", "minLength": 1 },
+          "file": { "type": "string" },
+          "line": { "type": ["integer", "null"], "minimum": 1 },
+          "message": { "type": "string", "minLength": 1 },
+          "blocking": { "type": "boolean" },
+          "suggestion": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "summary": { "type": "string" },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "run_id": { "type": "string" },
+        "pr_number": { "type": ["string", "integer"] },
+        "workflow_run_id": { "type": "string" },
+        "workflow_attempt": { "type": "string" },
+        "repository": { "type": "string" },
+        "event": { "type": "string" },
+        "base_sha": { "type": "string" },
+        "head_sha": { "type": "string" },
+        "prompt_sha256": { "type": "string" },
+        "policy_sha256": { "type": "string" },
+        "schema_sha256": { "type": "string" },
+        "cli_version": { "type": "string" },
+        "started_at": { "type": "string" },
+        "finished_at": { "type": "string" },
+        "duration_ms": { "type": "number" },
+        "usage": { "type": "object" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

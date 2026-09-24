@@ -1,0 +1,35 @@
+version: 1
+name: g-agent-platform-pr-review
+
+required:
+  deterministic: true
+  primary: true
+  human_approval: true
+
+blocking_severities:
+  - critical
+  - high
+
+deep_review_paths:
+  - .github/
+  - agent-os/2-harness/
+  - agent-os/5-runtime/
+  - harness-foundation/
+  - review/
+  - agent-os/install.sh
+  - agent-os/1-loop/
+
+review_rules:
+  - correctness
+  - security
+  - regression
+  - dependency-risk
+  - test-adequacy
+  - cross-file-drift
+  - prompt-injection-resistance
+
+triage:
+  statuses: [safe, review-required, blocked]
+  fail_closed_on: [missing_evidence, reviewer_disagreement, service_failure, incomplete_dependency_metadata]
+  human_approval_required: true
+  auto_merge_requires: [deterministic, security, required_reviews, human_approval]

@@ -1,0 +1,8 @@
+
+# --- agent-os linkage: LOCAL ONLY / never push OS info ---
+.agent
+.agent-os/
+*.generated.md
+.agent-os.lock
+agent-bootstrap.sh
+.agent-stack.json
